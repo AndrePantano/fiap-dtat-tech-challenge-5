@@ -72,7 +72,7 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │
     ├── models/
     │   ├── trained_model.pkl   # Modelo treinado
-    │   └── scaler.pkl         # Normalizadores (se aplicável)
+    │   └── scaler.pkl          # Normalizadores (se aplicável)
     │
     ├── reports/
     │   ├── presentation.pdf    # Storytelling executivo PDF ou PPTX
