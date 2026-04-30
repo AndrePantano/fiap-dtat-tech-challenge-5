@@ -137,3 +137,5 @@ Sinta-se à vontade para contribuir com melhorias, novas análises ou otimizaç�
 
 ## 📄 Licença
 Este projeto é de caráter educacional e sem fins lucrativos.
+
+Fique à vontade para explorá-lo!
