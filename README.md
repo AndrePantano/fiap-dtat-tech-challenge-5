@@ -33,7 +33,7 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
 - Jupyter Notebook
 
 ## 🏗️ Arquitetura do projeto
-    datathon-passos-magicos/
+    fiap-dtat-tech-challenge-5/
     │
     ├── data/
     │   ├── raw/                # Dados brutos (originais)
@@ -45,6 +45,11 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   ├── 02_feature_eng.ipynb # Engenharia de atributos
     │   ├── 03_model.ipynb       # Modelagem preditiva
     │   └── 04_evaluation.ipynb  # Avaliação dos modelos
+    │
+    ├── docs/
+    │   ├── Dicionário Dados Datathon.pdf    # Dicionário de dados
+    │   ├── PEDE_ Pontos importantes.pdf     # Como os indicadores são construídos
+    │   └── POSTECH - Datathon - Fase 5.pdf  # Detalhes do Datathon
     │
     ├── src/
     │   ├── data/
