@@ -37,11 +37,12 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │
     ├── data/
     │   ├── raw/                # Dados brutos (originais)
-    │   ├── processed/          # Dados tratados
-    │   └── external/           # Dados externos (se houver)
+    │   ├── interim/            # Dados ajustados para análise, gerado automaticamente pelo script src/data/make_interim.py
+    │   └── processed/          # Dados tratados (produção)
     │
     ├── notebooks/
-    │   ├── 01_eda.ipynb         # Análise exploratória
+    │   ├── 00_pre_eda.ipynb     # Preparação dos dados antes da Análise exploratória
+    │   ├── 01_eda.ipynb         # Análise exploratória (Respondendo as perguntas) - Storytelling Técnico
     │   ├── 02_feature_eng.ipynb # Engenharia de atributos
     │   ├── 03_model.ipynb       # Modelagem preditiva
     │   └── 04_evaluation.ipynb  # Avaliação dos modelos
@@ -53,22 +54,23 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │
     ├── src/
     │   ├── data/
-    │   │   ├── load_data.py
-    │   │   ├── preprocess.py
+    │   │   ├── load_data.py    # Carrega os dados brutos
+    │   │   ├── make_interim.py # Processa os dados brutos 
+    │   │   └── preprocess.py   # Biblioteca de funções para reaproveitamento
     │   │
     │   ├── features/
-    │   │   ├── build_features.py
+    │   │   ├── build_features.py # Gera o dataset para ser consumido pelo modelo
     │   │
     │   ├── models/
-    │   │   ├── train.py
-    │   │   ├── predict.py
-    │   │   └── evaluate.py
+    │   │   ├── train.py        # Treina e cria o modelo preditivo escolhido
+    │   │   ├── evaluate.py     # Avalia o modelo usando métricas
+    │   │   └── predict.py      # Arquivo usado pelo Streamlit
     │   │
     │   ├── visualization/
     │   │   ├── plots.py
-    │
+    |   |
     │   └── utils/
-    │       ├── helpers.py
+    │       └── helpers.py
     │
     ├── app/
     │   ├── streamlit_app.py    # Aplicação principal
@@ -76,8 +78,7 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   └── components/         # Componentes reutilizáveis
     │
     ├── models/
-    │   ├── trained_model.pkl   # Modelo treinado
-    │   └── scaler.pkl          # Normalizadores (se aplicável)
+    │   └── modelo_risco_passos_magicos.pkl   # Modelo treinado
     │
     ├── reports/
     │   ├── presentation.pdf    # Storytelling executivo PDF ou PPTX
@@ -109,16 +110,16 @@ A aplicação permite:
 
 ## ▶️ Como rodar localmente:
     # Clone o repositório
-    git clone https://github.com/seu-repo/datathon-passos-magicos.git
+    git clone https://github.com/AndrePantano/fiap-dtat-tech-challenge-5.git
     
     # Acesse a pasta
-    cd datathon-passos-magicos
+    cd fiap-dtat-tech-challenge-5
     
     # Instale as dependências
     pip install -r requirements.txt
     
     # Execute o app
-    streamlit run app/streamlit_app.py
+    python -m streamlit run app/streamlit_app.py
 
 ## 🚀 Deploy
 A aplicação deve ser publicada no:
