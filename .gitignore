@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Notebook temporário
+notebooks/99_teste.ipynb

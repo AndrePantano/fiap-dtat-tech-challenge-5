@@ -1,0 +1,163 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import streamlit as st
+from app.components.charts import plot_profile_comparison
+from app.components.cards import render_soft_card
+from app.utils.formatters import format_decimal, format_pct
+from app.services.risk_analysis import predict_risk, classify_risk, build_priority_table, build_strengths_table, build_scenarios, build_recommendations, build_case_summary
+from src.constants import FEATURES, FEATURE_HELP
+
+
+def render_tab_triagem(tab_triagem, benchmarks, model, importances):
+
+    with tab_triagem:
+        st.subheader("Leitura individual com benchmark da base")
+        st.caption(
+            "Os controles abaixo atualizam a leitura automaticamente. Use a análise para triagem, reunião de caso ou monitoramento recorrente."
+        )
+
+        col_form, col_preview = st.columns([1.05, 0.95], gap="large")
+
+        with col_form:
+            st.text_input("Aluno ou identificador", placeholder="Ex.: RA-245 ou nome interno", key="student_name")
+            st.selectbox(
+                "Contexto de uso",
+                ["Triagem inicial", "Monitoramento mensal", "Discussão de caso"],
+                key="usage_context",
+            )
+            left, right = st.columns(2, gap="medium")
+
+            defaults = {
+                feature: float(round(benchmarks.loc[feature, "mediana"], 1)) if pd.notna(benchmarks.loc[feature, "mediana"]) else 6.0
+                for feature in FEATURES
+            }
+
+            with left:
+                ida = st.slider("IDA", 0.0, 10.0, defaults["ida"], 0.1, help=FEATURE_HELP["ida"])
+                ieg = st.slider("IEG", 0.0, 10.0, defaults["ieg"], 0.1, help=FEATURE_HELP["ieg"])
+                ips = st.slider("IPS", 0.0, 10.0, defaults["ips"], 0.1, help=FEATURE_HELP["ips"])
+
+            with right:
+                ipp = st.slider("IPP", 0.0, 10.0, defaults["ipp"], 0.1, help=FEATURE_HELP["ipp"])
+                iaa = st.slider("IAA", 0.0, 10.0, defaults["iaa"], 0.1, help=FEATURE_HELP["iaa"])
+                #ian = st.slider("IAN", 0.0, 10.0, defaults["ian"], 0.1, help=FEATURE_HELP["ian"])
+                #ipv = st.slider("IPV", 0.0, 10.0, defaults["ipv"], 0.1, help=FEATURE_HELP["ipv"])
+
+            st.caption("Escala de referência dos indicadores: 0 a 10.")
+
+        input_series = pd.Series({
+            "ida": ida,
+            "ieg": ieg,
+            "ips": ips,
+            "ipp": ipp,
+            "iaa": iaa,
+            #"IAN": ian,
+            #"ipv": ipv
+        })
+        
+
+        prediction, probability = predict_risk(model, input_series)        
+        band = classify_risk(probability)
+        priority_df = build_priority_table(input_series, benchmarks, importances)
+        strengths_df = build_strengths_table(input_series, benchmarks)
+        scenario_df, combined_probability = build_scenarios(model, input_series, benchmarks, probability)
+        recommendations = build_recommendations(priority_df)
+        case_summary = build_case_summary(band, priority_df, strengths_df, probability, combined_probability)
+
+        with col_preview:
+            benchmark_fig = plot_profile_comparison(input_series, benchmarks)
+            st.pyplot(benchmark_fig, use_container_width=True)
+            plt.close(benchmark_fig)
+
+            below_median = int((priority_df["Gap"] > 0).sum())
+            top_gap = priority_df.iloc[0]
+            st.markdown(
+                f"""
+                <div class="soft-card">
+                    <h4>Resumo instantâneo</h4>
+                    <p>
+                        {below_median} de 6 indicadores estão abaixo da mediana da base.
+                        O maior desvio atual aparece em <strong>{top_gap["Indicador"]}</strong>.
+                    </p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        st.markdown(
+            f"""
+            <div class="risk-panel {band["tone"]}">
+                <div>
+                    <span class="eyebrow" style="background: rgba(20,50,74,0.08); color: #14324a;">Leitura preditiva</span>
+                    <h3>{band["label"]}</h3>
+                    <p>{band["message"]}</p>
+                </div>
+                <div class="risk-score">{format_pct(probability)}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        st.progress(int(probability * 100))
+        result_cols = st.columns(4)
+        result_cols[0].metric("Classe prevista", "Risco" if prediction == 1 else "Baixo risco")
+        result_cols[1].metric("Abaixo da mediana", f"{below_median}/6")
+        result_cols[2].metric(
+            "Melhor cenário projetado",
+            format_pct(float(scenario_df.iloc[0]["Risco projetado"])),
+            f"-{format_pct(float(scenario_df.iloc[0]['Redução potencial']))}",
+        )
+        result_cols[3].metric(
+            "Plano conjunto",
+            format_pct(combined_probability),
+            f"-{format_pct(max(probability - combined_probability, 0.0))}",
+        )
+
+        st.info(case_summary)
+
+        analysis_left, analysis_right = st.columns([1.05, 0.95], gap="large")
+
+        with analysis_left:
+            st.markdown("#### Prioridades de intervenção")
+            priority_display = priority_df.copy()
+            priority_display["Valor atual"] = priority_display["Valor atual"].map(lambda x: format_decimal(x, 1))
+            priority_display["Mediana da base"] = priority_display["Mediana da base"].map(lambda x: format_decimal(x, 1))
+            priority_display["Gap"] = priority_display["Gap"].map(lambda x: format_decimal(x, 2))
+            priority_display["Importância"] = priority_display["Importância"].map(lambda x: format_decimal(x, 2))
+            st.dataframe(
+                priority_display[
+                    ["Indicador", "Status", "Valor atual", "Mediana da base", "Gap", "Importância"]
+                ],
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            st.markdown("#### Recomendações acionáveis")
+            for title, description in recommendations:
+                render_soft_card(title, description)
+
+        with analysis_right:
+            st.markdown("#### Simulações de melhoria")
+            scenario_display = scenario_df.copy()
+            scenario_display["Valor alvo"] = scenario_display["Valor alvo"].map(lambda x: format_decimal(x, 1))
+            scenario_display["Risco projetado"] = scenario_display["Risco projetado"].map(lambda x: format_pct(x))
+            scenario_display["Redução potencial"] = scenario_display["Redução potencial"].map(lambda x: format_pct(x))
+            st.dataframe(
+                scenario_display[["Indicador", "Valor alvo", "Risco projetado", "Redução potencial"]],
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            st.markdown("#### Fortalezas do perfil")
+            if strengths_df.empty:
+                render_soft_card(
+                    "Sem fortalezas evidentes acima da mediana",
+                    "O caso pede foco em recuperação dos pilares centrais antes de ampliar outras frentes.",
+                )
+            else:
+                for _, row in strengths_df.head(3).iterrows():
+                    render_soft_card(
+                        row["Indicador"],
+                        f"Indicador acima da mediana da base em {format_decimal(row['Ganho'], 2)} ponto(s), o que ajuda a amortecer o risco atual.",
+                    )
+
