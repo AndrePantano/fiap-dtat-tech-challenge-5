@@ -59,18 +59,16 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   │   └── preprocess.py   # Biblioteca de funções para reaproveitamento
     │   │
     │   ├── features/
-    │   │   ├── build_features.py # Gera o dataset para ser consumido pelo modelo
+    │   │   └──  build_features.py # Gera o dataset para ser consumido pelo modelo
     │   │
     │   ├── models/
     │   │   ├── train.py        # Treina e cria o modelo preditivo escolhido
     │   │   ├── evaluate.py     # Avalia o modelo usando métricas
     │   │   └── predict.py      # Arquivo usado pelo Streamlit
-    │   │
-    │   ├── visualization/
-    │   │   ├── plots.py
     |   |
-    │   └── utils/
-    │       └── helpers.py
+    │   ├── config.py       # Configuração com constantes como variáveis de ambiente com o diretórios e arquivos
+    │   ├── constants.py    # Váriaveis que armazenam a configuração consumida pelo pipeline e o app
+    │   └── pipeline.py     # Script com o roteiro de execução para a geração do modelo
     │
     ├── app/
     │   ├── streamlit_app.py    # Aplicação principal
@@ -118,8 +116,11 @@ A aplicação permite:
     # Instale as dependências
     pip install -r requirements.txt
     
+    # Executar o pipeline do modelo
+    python -m src.pipeline
+
     # Execute o app
-    python -m streamlit run app/streamlit_app.py
+    python -m streamlit run app.streamlit_app
 
 ## 🚀 Deploy
 A aplicação deve ser publicada no:

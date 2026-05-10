@@ -15,6 +15,7 @@ REPORTS_DIR        = BASE_DIR / "reports"
 APP_DIR            = BASE_DIR / "app"
 STYLE_DIR          = APP_DIR / "styles"
 
+RAW_PATH           = RAW_DATA_DIR / "BASE DE DADOS PEDE 2024 - DATATHON.xlsx"
 DATA_PATH          = INTERIM_DATA_DIR / "pede_interim.csv"
-MODEL_FILE         = MODELS_DIR / "modelo_risco_passos_magicos.pkl"
 ML_DATASET_FILE    = PROCESSED_DATA_DIR / "ml_dataset.csv"
+MODEL_FILE         = MODELS_DIR / "modelo_risco_passos_magicos.pkl"

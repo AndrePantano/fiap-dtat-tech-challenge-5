@@ -1,7 +1,6 @@
 import pandas as pd
 
-#FEATURES = ["IDA", "IEG", "IPS", "IPP", "IAN", "IPV"]
-FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'iaa']
+FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','idade']
 
 FEATURE_LABELS = {
     "ida": "Desempenho acadêmico",
@@ -12,6 +11,7 @@ FEATURE_LABELS = {
     "ipv": "Ponto de virada",
     "iaa": "Auto Avaliação"
 }
+
 FEATURE_HELP = {
     "ida": "Qualidade do desempenho acadêmico do aluno.",
     "ieg": "Nível de participação, constância e envolvimento nas atividades.",
@@ -63,10 +63,12 @@ ACTION_LIBRARY = {
 }
 
 NOTEBOOK_METRICS = {
-    "Acurácia": "78%",
-    "F1-score": "0.87",
-    "Recall risco": "78%",
+    "Acurácia": "80%",
+    "F1-score": 0.89,
+    "Recall para Risco": 0.76,
+    "Curva ROC(AUC)" : 0.89
 }
+
 DEFAULT_IMPORTANCES = pd.Series({
     "ipp": 0.436157,
     "ieg": 0.237873,
