@@ -3,14 +3,14 @@ from utils.formatters import format_decimal, format_pct, format_int, join_labels
 from src.constants import NOTEBOOK_METRICS
 from app.services.analytics import get_year_summary, get_institution_count
 
-def render_metrics(analytics_base):
+def render_metrics_summary(analytics_base):
 
     year_summary = get_year_summary(analytics_base)
     institution_count = get_institution_count(analytics_base)
 
     metric_columns = st.columns(4)
 
-    metric_columns[0].metric("Recall da classe de risco", NOTEBOOK_METRICS["Recall risco"])
+    metric_columns[0].metric("Recall da classe de risco", NOTEBOOK_METRICS["Recall para Risco"])
 
     metric_columns[1].metric(
         "INDE médio em 2024",
@@ -28,4 +28,20 @@ def render_metrics(analytics_base):
         "Instituições mapeadas",
         format_int(institution_count),
         "na base consolidada"
+    )
+
+def render_metrics_predict(prediction, below_median, scenario_df, combined_probability, probability):
+    
+    result_cols = st.columns(4)
+    result_cols[0].metric("Classe prevista", "Risco" if prediction == 1 else "Baixo risco")
+    result_cols[1].metric("Abaixo da mediana", f"{below_median}/6")
+    result_cols[2].metric(
+        "Melhor cenário projetado",
+        format_pct(float(scenario_df.iloc[0]["Risco projetado"])),
+        f"-{format_pct(float(scenario_df.iloc[0]['Redução potencial']))}",
+    )
+    result_cols[3].metric(
+        "Plano conjunto",
+        format_pct(combined_probability),
+        f"-{format_pct(max(probability - combined_probability, 0.0))}",
     )

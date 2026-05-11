@@ -120,7 +120,7 @@ A aplicação permite:
     python -m src.pipeline
 
     # Execute o app
-    python -m streamlit run app.streamlit_app
+    python -m streamlit run app\streamlit_app.py
 
 ## 🚀 Deploy
 A aplicação deve ser publicada no:

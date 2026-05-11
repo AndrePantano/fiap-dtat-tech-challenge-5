@@ -38,6 +38,7 @@ def render_hero(sample_size):
                     <div class="hero-mini-card">
                         <span>Pilares centrais</span>
                         <strong>IDA, IEG e IPV</strong>
+                        <span>Combinação que mais eleva a nota global.</span>
                     </div>
                 </div>
             </div>

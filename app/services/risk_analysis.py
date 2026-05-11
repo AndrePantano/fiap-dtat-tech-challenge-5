@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import Tuple, Dict, List
-from src.constants import FEATURES, DEFAULT_IMPORTANCES, FEATURE_LABELS, ACTION_LIBRARY
+from src.constants import FEATURES, FEATURES_RESUMIDAS, DEFAULT_IMPORTANCES, FEATURE_LABELS, ACTION_LIBRARY
 from app.utils.formatters import format_pct, join_labels
 
 def predict_risk(model, input_series: pd.Series) -> Tuple[int, float]:
@@ -30,14 +30,12 @@ def classify_risk(probability: float) -> Dict[str, str]:
     }
 
 
-def build_priority_table(
-    input_series: pd.Series, benchmarks: pd.DataFrame, importances: pd.Series
-) -> pd.DataFrame:
+def build_priority_table(input_series: pd.Series, benchmarks: pd.DataFrame, importances: pd.Series) -> pd.DataFrame:
     rows = []
 
-    for feature in FEATURES:
+    for feature in FEATURES_RESUMIDAS:
         current = float(input_series[feature])
-        median = float(benchmarks.loc[feature, "mediana"])
+        median = float(benchmarks.loc[feature, "exemplo_resumido"])
         q25 = float(benchmarks.loc[feature, "q25"])
         importance = float(importances.get(feature, DEFAULT_IMPORTANCES.get(feature, 0.0)))
         gap = max(median - current, 0.0)
@@ -85,9 +83,9 @@ def build_strengths_table(input_series: pd.Series, benchmarks: pd.DataFrame) -> 
 def build_scenarios(model, input_series: pd.Series, benchmarks: pd.DataFrame, base_probability: float) -> Tuple[pd.DataFrame, float]:
     rows = []
 
-    for feature in FEATURES:
+    for feature in FEATURES_RESUMIDAS:
         scenario = input_series.copy()
-        target = max(float(input_series[feature]), float(benchmarks.loc[feature, "mediana"]))
+        target = max(float(input_series[feature]), float(benchmarks.loc[feature, "exemplo_resumido"]))
         scenario[feature] = min(target, 10.0)
         _, new_probability = predict_risk(model, scenario)
         rows.append(
@@ -112,7 +110,7 @@ def build_scenarios(model, input_series: pd.Series, benchmarks: pd.DataFrame, ba
 
     combined = input_series.copy()
     for feature in priority_features:
-        combined[feature] = max(float(combined[feature]), float(benchmarks.loc[feature, "mediana"]))
+        combined[feature] = max(float(combined[feature]), float(benchmarks.loc[feature, "exemplo_resumido"]))
 
     _, combined_probability = predict_risk(model, combined)
     return scenario_df, combined_probability
