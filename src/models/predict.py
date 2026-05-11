@@ -2,12 +2,8 @@ import joblib
 import pandas as pd
 from typing import Tuple
 from pathlib import Path
-
-# Caminhos
-BASE_DIR = Path(__file__).resolve().parents[2]
-MODEL_FILE = BASE_DIR / "models" / "modelo_risco_passos_magicos.pkl"
-
-FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'iaa']
+from src.config import MODEL_FILE
+from src.constants import FEATURES
 
 # Carregando modelo
 model = joblib.load(MODEL_FILE)

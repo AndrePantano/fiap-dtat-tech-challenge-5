@@ -1,7 +1,8 @@
 import pandas as pd
 
-#FEATURES = ["IDA", "IEG", "IPS", "IPP", "IAN", "IPV"]
-FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'iaa']
+FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','idade']
+FEATURES_RESUMIDAS = ['ida', 'ieg', 'ips', 'ipp']
+FEATURES_INDICATORS = ["ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]
 
 FEATURE_LABELS = {
     "ida": "Desempenho acadêmico",
@@ -10,8 +11,11 @@ FEATURE_LABELS = {
     "ipp": "Psicopedagógico",
     "ian": "Adequação de nível",
     "ipv": "Ponto de virada",
-    "iaa": "Auto Avaliação"
+    "iaa": "Auto Avaliação",
+    "fase": "Fase atual do aluno",
+    "idade": "Idade do aluno"
 }
+
 FEATURE_HELP = {
     "ida": "Qualidade do desempenho acadêmico do aluno.",
     "ieg": "Nível de participação, constância e envolvimento nas atividades.",
@@ -19,7 +23,9 @@ FEATURE_HELP = {
     "ipp": "Leitura psicopedagógica do desenvolvimento e do suporte necessário.",
     "ian": "Aderência do aluno ao nível/fase esperada.",
     "ipv": "Sinal de evolução e mudança positiva na trajetória do estudante.",
-    "iaa": "Indicador de auto avaliação do aluno"
+    "iaa": "Indicador de auto avaliação do aluno",
+    "fase": "Fase atual do aluno",
+    "idade": "Idade do aluno"
 }
 
 FEATURE_DESCRIPTIONS = {
@@ -60,19 +66,31 @@ ACTION_LIBRARY = {
         "Adicionar título",
         "Adicionar ação",
     ),
+    "fase": (
+        "Adicionar título",
+        "Adicionar ação",
+    ),
+    "idade": (
+        "Adicionar título",
+        "Adicionar ação",
+    ),
 }
 
 NOTEBOOK_METRICS = {
-    "Acurácia": "78%",
-    "F1-score": "0.87",
-    "Recall risco": "78%",
+    "Acurácia": "80%",
+    "F1-score": 0.89,
+    "Recall para Risco": 0.76,
+    "Curva ROC(AUC)" : 0.89
 }
+
 DEFAULT_IMPORTANCES = pd.Series({
     "ipp": 0.436157,
     "ieg": 0.237873,
     "ida": 0.162431,
     "ips": 0.087016,
-    "iaa": 0.076523
+    "iaa": 0.076523,
+    "fase": 8,
+    "idade": 17
 })
 
 

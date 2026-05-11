@@ -48,6 +48,10 @@ h1, h2, h3 {
     color: var(--ink) !important;
 }
 
+[data-testid="stMarkdownContainer"] h4{
+    color: #333333;
+}
+
 .block-container [data-testid="stMarkdownContainer"] p,
 .block-container [data-testid="stMarkdownContainer"] li,
 .block-container [data-testid="stMarkdownContainer"] span,
@@ -179,6 +183,7 @@ h1, h2, h3 {
     font-size: 2rem;
     font-weight: 700;
     white-space: nowrap;
+    color: black;
 }
 
 .risk-high {
@@ -230,6 +235,10 @@ h1, h2, h3 {
     color: var(--muted) !important;
     font-size: 0.9rem;
     font-weight: 600;
+}
+
+[data-testid="stSidebarNav"] {
+    display: none;
 }
 
 [data-testid="stMetricValue"],

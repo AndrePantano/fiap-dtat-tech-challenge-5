@@ -1,17 +1,17 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from app.utils.formatters import format_decimal
-from src.constants import FEATURES, FEATURE_LABELS
+from src.constants import FEATURES_RESUMIDAS, FEATURE_LABELS
 
 def plot_profile_comparison(input_series: pd.Series, benchmarks: pd.DataFrame):
-    labels = [FEATURE_LABELS[feature] for feature in FEATURES]
-    base = benchmarks.loc[FEATURES, "mediana"].astype(float)
-    current = input_series.loc[FEATURES].astype(float)
-    colors = ["#0f766e" if current[feature] >= base[feature] else "#e76f51" for feature in FEATURES]
+        
+    labels = [FEATURE_LABELS[feature] for feature in FEATURES_RESUMIDAS]
+    base = benchmarks
+    current = input_series
+    colors = ["#0f766e" if current[feature] >= base[feature] else "#e76f51" for feature in FEATURES_RESUMIDAS]
 
-    fig, ax = plt.subplots(figsize=(7.6, 4.4))
-    ax.barh(labels, base.values, color="#d9e2ec", height=0.58, label="Mediana da base")
-    ax.barh(labels, current.values, color=colors, height=0.34, label="Aluno avaliado")
+    fig, ax = plt.subplots(figsize=(7.6, 3))    
+    ax.barh(labels, current.values, color=colors, height=0.34, label="Avaliação")
 
     for idx, value in enumerate(current.values):
         ax.text(min(value + 0.08, 10.1), idx, format_decimal(value, 1), va="center", fontsize=9, color="#14324a")
@@ -21,22 +21,24 @@ def plot_profile_comparison(input_series: pd.Series, benchmarks: pd.DataFrame):
     ax.set_ylabel("")
     ax.spines[["top", "right", "left"]].set_visible(False)
     ax.grid(axis="x", alpha=0.18)
-    ax.legend(frameon=False, loc="lower right")
     fig.tight_layout()
     return fig
 
 
 def plot_year_summary(year_summary: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(7.7, 4.6))
-    colors = {
-        "INDE": "#14324a",
-        "IDA": "#f08a5d",
-        "IEG": "#0f766e",
-        "IPV": "#2f5d8a",
-        "IAN": "#7b8da6",
+    colors = {        
+        "inde": "#14324A",  # azul petróleo institucional
+        "ida": "#E76F51",   # coral
+        "ieg": "#2A9D8F",   # verde água
+        "ips": "#457B9D",   # azul médio
+        "ipp": "#8D99AE",   # cinza azulado
+        "ian": "#E9C46A",   # amarelo queimado
+        "ipv": "#9B5DE5",   # roxo equilibrado
+        "iaa": "#EF476F",   # rosa/vermelho moderno
     }
 
-    for column in ["INDE", "IDA", "IEG", "IPV", "IAN"]:
+    for column in ["inde", "ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]:
         ax.plot(
             year_summary.index,
             year_summary[column],
