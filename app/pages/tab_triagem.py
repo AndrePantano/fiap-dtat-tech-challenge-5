@@ -54,7 +54,7 @@ def render_tab_triagem(tab_triagem, benchmarks, model, importances):
         band = classify_risk(probability)
         priority_df = build_priority_table(input_series, benchmarks, importances)
         strengths_df = build_strengths_table(input_series, benchmarks)
-        scenario_df, combined_probability = build_scenarios(model, input_series, benchmarks, probability)
+        scenario_df, combined_probability = build_scenarios(model, input_series, benchmarks, probability, importances)
         recommendations = build_recommendations(priority_df)
         case_summary = build_case_summary(band, priority_df, strengths_df, probability, combined_probability)
 
