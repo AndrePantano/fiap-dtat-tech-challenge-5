@@ -2,24 +2,34 @@
 import pandas as pd
 from typing import Optional
 
-from src.constants import (
-    FEATURES,
-    FEATURES_RESUMIDAS,
-    FEATURES_INDICATORS,    
-    DEFAULT_SAMPLE_SIZE,
-    DEFAULT_IMPORTANCES
-)
+from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURES_INDICATORS
 
 def get_feature_importances(model) -> pd.Series:
-    
-    try:
-        importances = pd.Series(model.feature_importances_, index=FEATURES, dtype="float64")
-        return importances.sort_values(ascending=False)
-    except Exception:
-        return DEFAULT_IMPORTANCES.sort_values(ascending=False)
-    
+
+    # modelos de árvore
+    if hasattr(model, "feature_importances_"):
+        importances = pd.Series(
+            model.feature_importances_,
+            index=FEATURES,
+            dtype="float64"
+        )
+
+    # regressão logística
+    elif hasattr(model, "coef_"):
+        importances = pd.Series(
+            abs(model.coef_[0]),
+            index=FEATURES,
+            dtype="float64"
+        )
+
+    else:
+        raise ValueError("Modelo não possui método de importância suportado.")
+
+    return importances.sort_values(ascending=False)
+
+        
 def get_benchmarks(df: Optional[pd.DataFrame]) -> pd.DataFrame:
-    
+
     # usado como exemplo no carregamento do app
     cols_round = [col for col in FEATURES if col not in ['fase', 'idade']]
     df_exemplo = df.loc[(df['inde_24'] > 9) & (df['fase'] > 0), FEATURES].head(1).copy()
@@ -55,8 +65,6 @@ def get_correlations(df: Optional[pd.DataFrame]) -> pd.Series:
     
 
 def get_sample_size(df: Optional[pd.DataFrame]) -> int:
-    if df is None:
-        return DEFAULT_SAMPLE_SIZE
     return int(df["ra"].notna().sum())
 
 

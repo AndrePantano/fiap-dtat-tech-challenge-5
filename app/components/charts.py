@@ -38,7 +38,9 @@ def plot_year_summary(year_summary: pd.DataFrame):
         "iaa": "#EF476F",   # rosa/vermelho moderno
     }
 
-    for column in ["inde", "ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]:
+    columns = ["inde", "ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]
+
+    for column in columns:
         ax.plot(
             year_summary.index,
             year_summary[column],
@@ -54,8 +56,13 @@ def plot_year_summary(year_summary: pd.DataFrame):
     ax.set_ylabel("Média do indicador")
     ax.set_xlabel("Ano")
     ax.grid(alpha=0.18)
-    ax.spines[["top", "right"]].set_visible(False)
-    ax.legend(frameon=False, ncol=3)
+    ax.spines[["top", "right"]].set_visible(False)    
+    ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.18),
+        ncol=len(columns),
+        frameon=False
+    )
     fig.tight_layout()
     return fig
 
@@ -79,7 +86,7 @@ def plot_correlation_chart(correlations: pd.Series):
 
 def plot_importance_chart(importances: pd.Series):
     ordered = importances.sort_values()
-    fig, ax = plt.subplots(figsize=(6.6, 4.3))
+    fig, ax = plt.subplots(figsize=(6.6, 2.5))
     ax.barh([FEATURE_LABELS[idx] for idx in ordered.index], ordered.values, color="#f08a5d")
     ax.set_xlabel("Importância relativa")
     ax.spines[["top", "right", "left"]].set_visible(False)

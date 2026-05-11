@@ -1,6 +1,6 @@
 import pandas as pd
 from typing import Tuple, Dict, List
-from src.constants import FEATURES, FEATURES_RESUMIDAS, DEFAULT_IMPORTANCES, FEATURE_LABELS, ACTION_LIBRARY
+from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_LABELS, ACTION_LIBRARY
 from app.utils.formatters import format_pct, join_labels
 
 def predict_risk(model, input_series: pd.Series) -> Tuple[int, float]:
@@ -37,7 +37,7 @@ def build_priority_table(input_series: pd.Series, benchmarks: pd.DataFrame, impo
         current = float(input_series[feature])
         median = float(benchmarks.loc[feature, "exemplo_resumido"])
         q25 = float(benchmarks.loc[feature, "q25"])
-        importance = float(importances.get(feature, DEFAULT_IMPORTANCES.get(feature, 0.0)))
+        importance = float(importances.get(feature))
         gap = max(median - current, 0.0)
         status = "Crítico" if current < q25 else "Abaixo da mediana" if current < median else "Acima da mediana"
 
@@ -80,7 +80,7 @@ def build_strengths_table(input_series: pd.Series, benchmarks: pd.DataFrame) -> 
     return strengths.sort_values("Ganho", ascending=False)
 
 
-def build_scenarios(model, input_series: pd.Series, benchmarks: pd.DataFrame, base_probability: float) -> Tuple[pd.DataFrame, float]:
+def build_scenarios(model, input_series: pd.Series, benchmarks: pd.DataFrame, base_probability: float, importances: pd.Series) -> Tuple[pd.DataFrame, float]:
     rows = []
 
     for feature in FEATURES_RESUMIDAS:
@@ -104,7 +104,7 @@ def build_scenarios(model, input_series: pd.Series, benchmarks: pd.DataFrame, ba
 
     priority_features = [
         row["Feature"]
-        for _, row in build_priority_table(input_series, benchmarks, DEFAULT_IMPORTANCES).iterrows()
+        for _, row in build_priority_table(input_series, benchmarks, importances).iterrows()
         if row["Gap"] > 0
     ][:3]
 

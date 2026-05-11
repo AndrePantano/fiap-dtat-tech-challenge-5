@@ -24,11 +24,7 @@ def render_metrics_summary(analytics_base):
         f"{format_decimal(float(year_summary.loc[2024, 'ieg'] - year_summary.loc[2023, 'ieg']))} vs 2023",
     )
 
-    metric_columns[3].metric(
-        "Instituições mapeadas",
-        format_int(institution_count),
-        "na base consolidada"
-    )
+    metric_columns[3].metric("Instituições mapeadas", format_int(institution_count))
 
 def render_metrics_predict(prediction, below_median, scenario_df, combined_probability, probability):
     

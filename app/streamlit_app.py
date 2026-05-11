@@ -7,9 +7,10 @@ import streamlit as st
 from app.components.hero import render_hero
 from app.components.sidebar import render_sidebar
 from app.components.metrics import render_metrics_summary
-from app.services.analytics import get_benchmarks, get_year_summary, get_sample_size, get_feature_importances, get_correlations
+from app.services.analytics import get_benchmarks, get_sample_size, get_feature_importances
 from app.pages.tab_triagem import render_tab_triagem
 from app.pages.tab_insights import render_tab_insight
+from app.pages.tab_modelo import render_tab_modelo
 from src.config import MODEL_FILE
 from utils.loaders import load_css, load_model, load_analytics_base
 
@@ -43,3 +44,4 @@ render_tab_triagem(tab_triagem, benchmarks, model, importances)
 render_tab_insight(tab_insights, analytics_base)
 
 # tab_modelo
+render_tab_modelo(tab_modelo, importances)

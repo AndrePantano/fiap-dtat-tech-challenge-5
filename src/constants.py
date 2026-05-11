@@ -1,5 +1,3 @@
-import pandas as pd
-
 FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','idade']
 FEATURES_RESUMIDAS = ['ida', 'ieg', 'ips', 'ipp']
 FEATURES_INDICATORS = ["ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]
@@ -12,8 +10,8 @@ FEATURE_LABELS = {
     "ian": "Adequação de nível",
     "ipv": "Ponto de virada",
     "iaa": "Auto Avaliação",
-    "fase": "Fase atual do aluno",
-    "idade": "Idade do aluno"
+    "fase": "Fase Atual",
+    "idade": "Idade"
 }
 
 FEATURE_HELP = {
@@ -29,12 +27,14 @@ FEATURE_HELP = {
 }
 
 FEATURE_DESCRIPTIONS = {
-    "IDA": "Principal pilar acadêmico do modelo. Quedas aqui tendem a puxar o risco para cima.",
-    "IEG": "Representa tração, presença e participação. O notebook mostra que ele caminha junto com o IDA.",
-    "IPS": "Tem baixa correlação direta com o risco, mas pode sinalizar efeitos indiretos ou mais tardios.",
-    "IPP": "Apoio psicopedagógico aparece como alavanca relevante para evolução e para o IPV.",
-    "IAN": "Ajuda a contextualizar o nível do aluno, mas não é o principal fator explicativo do risco.",
-    "IPV": "Resume o quanto o aluno está virando a curva. Tem forte relação com INDE, IDA e IEG.",
+    "ida": "Principal pilar acadêmico do modelo. Quedas aqui tendem a puxar o risco para cima.",
+    "ieg": "Representa tração, presença e participação. O notebook mostra que ele caminha junto com o IDA.",
+    "ips": "Tem baixa correlação direta com o risco, mas pode sinalizar efeitos indiretos ou mais tardios.",
+    "ipp": "Apoio psicopedagógico aparece como alavanca relevante para evolução e para o IPV.",
+    "ian": "Ajuda a contextualizar o nível do aluno, mas não é o principal fator explicativo do risco.",
+    "ipv": "Resume o quanto o aluno está virando a curva. Tem forte relação com INDE, IDA e IEG.",
+    "fase": "Fase atual do aluno",
+    "idade": "Idade do aluno"
 }
 
 ACTION_LIBRARY = {
@@ -80,60 +80,6 @@ NOTEBOOK_METRICS = {
     "Acurácia": "80%",
     "F1-score": 0.89,
     "Recall para Risco": 0.76,
-    "Curva ROC(AUC)" : 0.89
+    "Curva ROC(AUC)" : 0.89,
+    "Modelo Treinado": "LogisticRegression"
 }
-
-DEFAULT_IMPORTANCES = pd.Series({
-    "ipp": 0.436157,
-    "ieg": 0.237873,
-    "ida": 0.162431,
-    "ips": 0.087016,
-    "iaa": 0.076523,
-    "fase": 8,
-    "idade": 17
-})
-
-
-DEFAULT_BENCHMARKS = pd.DataFrame(
-    {
-        "media": {
-            "IDA": 6.376,
-            "IEG": 7.946,
-            "IPS": 6.287,
-            "IPP": 7.555,
-            "IAN": 7.179,
-            "IPV": 7.545,
-        },
-        "mediana": {
-            "IDA": 6.667,
-            "IEG": 8.600,
-            "IPS": 7.500,
-            "IPP": 7.500,
-            "IAN": 5.000,
-            "IPV": 7.583,
-        },
-        "q25": {
-            "IDA": 5.100,
-            "IEG": 7.300,
-            "IPS": 5.020,
-            "IPP": 7.083,
-            "IAN": 5.000,
-            "IPV": 6.984,
-        },
-    }
-)
-DEFAULT_YEAR_SUMMARY = pd.DataFrame(
-    {
-        "INDE": {2022: 7.036, 2023: 7.342, 2024: 7.397},
-        "IDA": {2022: 6.093, 2023: 6.663, 2024: 6.351},
-        "IEG": {2022: 7.891, 2023: 8.699, 2024: 7.375},
-        "IPS": {2022: 6.905, 2023: 5.120, 2024: 6.830},
-        "IPP": {2022: None, 2023: 7.563, 2024: 7.548},
-        "IAN": {2022: 6.424, 2023: 7.244, 2024: 7.684},
-        "IPV": {2022: 7.254, 2023: 8.028, 2024: 7.354},
-    }
-)
-DEFAULT_CORRELATIONS = pd.Series(
-    {"IDA": 0.785, "IEG": 0.745, "IPV": 0.721, "IPP": 0.540, "IAN": 0.405, "IPS": 0.200}
-)
-DEFAULT_SAMPLE_SIZE = 2845

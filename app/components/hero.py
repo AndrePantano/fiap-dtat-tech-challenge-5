@@ -34,6 +34,7 @@ def render_hero(sample_size):
                         <strong>
                             {NOTEBOOK_METRICS["Acurácia"]} de acurácia
                         </strong>
+                        <span>Recall de {NOTEBOOK_METRICS["Recall para Risco"]} para a classe de risco</span>
                     </div>
                     <div class="hero-mini-card">
                         <span>Pilares centrais</span>
