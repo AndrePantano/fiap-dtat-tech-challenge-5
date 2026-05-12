@@ -62,7 +62,7 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   └── 04_evaluation.ipynb  # Avaliação dos modelos
     │
     ├── reports/
-    │   └── presentation.pdf    # Storytelling executivo PDF ou PPTX
+    │   └── Apresentação Executiva - Datathon Passos Mágicos.pdf
     │
     ├── src/
     │   ├── data/
