@@ -1,8 +1,11 @@
 import streamlit as st
+from app.services.analytics import get_sample_size
 from app.utils.formatters import format_int
 from src.constants import NOTEBOOK_METRICS
 
-def render_hero(sample_size):
+def render_hero(analytics_base):
+
+    sample_size = get_sample_size(analytics_base)
 
     st.markdown(
         f"""

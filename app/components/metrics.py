@@ -1,7 +1,7 @@
 import streamlit as st
-from utils.formatters import format_decimal, format_pct, format_int, join_labels
-from src.constants import NOTEBOOK_METRICS
 from app.services.analytics import get_year_summary, get_institution_count
+from app.utils.formatters import format_decimal, format_pct, format_int
+from src.constants import NOTEBOOK_METRICS
 
 def render_metrics_summary(analytics_base):
 

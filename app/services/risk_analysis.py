@@ -5,6 +5,7 @@ from app.utils.formatters import format_pct, join_labels
 
 def predict_risk(model, input_series: pd.Series) -> Tuple[int, float]:
     payload = pd.DataFrame([[input_series[feature] for feature in FEATURES]], columns=FEATURES)
+    payload = payload.apply(pd.to_numeric, errors="coerce")
     prediction = int(model.predict(payload)[0])
     probability = float(model.predict_proba(payload)[0][1])
     return prediction, probability

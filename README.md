@@ -34,11 +34,25 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
 
 ## 🏗️ Arquitetura do projeto
     fiap-dtat-tech-challenge-5/
+    ├── app/
+    │   ├── components/         # Componentes da aplicação
+    │   ├── pages/              # Tabs da aplicação
+    │   ├── services/           # Regras de negócios e Funções Analíticas
+    │   ├── styles/             # Estilos CSS da aplicação
+    │   └── utils/              # Funções reutilizáveis
     │
     ├── data/
     │   ├── raw/                # Dados brutos (originais)
     │   ├── interim/            # Dados ajustados para análise, gerado automaticamente pelo script src/data/make_interim.py
     │   └── processed/          # Dados tratados (produção)
+    │
+    ├── docs/
+    │   ├── Dicionário Dados Datathon.pdf    # Dicionário de dados
+    │   ├── PEDE_ Pontos importantes.pdf     # Como os indicadores são construídos
+    │   └── POSTECH - Datathon - Fase 5.pdf  # Detalhes do Datathon
+    │
+    ├── models/
+    │   └── modelo_risco_passos_magicos.pkl   # Modelo treinado
     │
     ├── notebooks/
     │   ├── 00_pre_eda.ipynb     # Preparação dos dados antes da Análise exploratória
@@ -47,10 +61,8 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   ├── 03_model.ipynb       # Modelagem preditiva
     │   └── 04_evaluation.ipynb  # Avaliação dos modelos
     │
-    ├── docs/
-    │   ├── Dicionário Dados Datathon.pdf    # Dicionário de dados
-    │   ├── PEDE_ Pontos importantes.pdf     # Como os indicadores são construídos
-    │   └── POSTECH - Datathon - Fase 5.pdf  # Detalhes do Datathon
+    ├── reports/
+    │   └── presentation.pdf    # Storytelling executivo PDF ou PPTX
     │
     ├── src/
     │   ├── data/
@@ -63,26 +75,14 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   │
     │   ├── models/
     │   │   ├── train.py        # Treina e cria o modelo preditivo escolhido
-    │   │   ├── evaluate.py     # Avalia o modelo usando métricas
-    │   │   └── predict.py      # Arquivo usado pelo Streamlit
+    │   │   └── evaluate.py     # Avalia o modelo usando métricas
     |   |
     │   ├── config.py       # Configuração com constantes como variáveis de ambiente com o diretórios e arquivos
     │   ├── constants.py    # Váriaveis que armazenam a configuração consumida pelo pipeline e o app
     │   └── pipeline.py     # Script com o roteiro de execução para a geração do modelo
     │
-    ├── app/
-    │   ├── streamlit_app.py    # Aplicação principal
-    │   ├── pages/              # Páginas adicionais (opcional)
-    │   └── components/         # Componentes reutilizáveis
-    │
-    ├── models/
-    │   └── modelo_risco_passos_magicos.pkl   # Modelo treinado
-    │
-    ├── reports/
-    │   ├── presentation.pdf    # Storytelling executivo PDF ou PPTX
-    │   └── figures/            # Gráficos exportados
-    │
-    ├── requirements.txt
+    ├── streamlit_app.py    # Aplicação principal do Streamlit
+    ├── requirements.txt    # Pacotes necessários para rodar o projeto
     ├── README.md
     └── .gitignore
 
@@ -120,7 +120,7 @@ A aplicação permite:
     python -m src.pipeline
 
     # Execute o app
-    python -m streamlit run app\streamlit_app.py
+    python -m streamlit run streamlit_app.py
 
 ## 🚀 Deploy
 A aplicação deve ser publicada no:
