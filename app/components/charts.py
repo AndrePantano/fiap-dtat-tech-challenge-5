@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from utils.formatters import format_decimal
+from app.utils.formatters import format_decimal
 from src.constants import FEATURES_RESUMIDAS, FEATURE_LABELS
 
 def plot_profile_comparison(input_series: pd.Series, benchmarks: pd.DataFrame):

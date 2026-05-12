@@ -1,11 +1,9 @@
-import streamlit as st
-import matplotlib.pyplot as plt
-from components.cards import render_soft_card
-from components.charts import plot_year_summary, plot_correlation_chart
-from services.analytics import get_year_summary, get_year_summary_all_indicators, get_correlations
-from utils.formatters import format_decimal
+from app.components.cards import render_soft_card
+from app.components.charts import plot_year_summary, plot_correlation_chart
+from app.services.analytics import get_year_summary, get_year_summary_all_indicators, get_correlations
+from app.utils.formatters import format_decimal
 
-def render_tab_insight(tab_insights, analytics_base):
+def render_tab_insight(st, plt, tab_insights, analytics_base):
     year_summary = get_year_summary(analytics_base)
     year_summary_all_indicators = get_year_summary_all_indicators(analytics_base)
     correlations = get_correlations(analytics_base)

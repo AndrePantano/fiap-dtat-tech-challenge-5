@@ -1,6 +1,6 @@
 import streamlit as st
-from services.analytics import get_sample_size
-from utils.formatters import format_int
+from app.services.analytics import get_sample_size
+from app.utils.formatters import format_int
 from src.constants import NOTEBOOK_METRICS
 
 def render_hero(analytics_base):
