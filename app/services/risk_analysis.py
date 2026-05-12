@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Tuple, Dict, List
 from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_LABELS, ACTION_LIBRARY
-from app.utils.formatters import format_pct, join_labels
+from utils.formatters import format_pct, join_labels
 
 def predict_risk(model, input_series: pd.Series) -> Tuple[int, float]:
     payload = pd.DataFrame([[input_series[feature] for feature in FEATURES]], columns=FEATURES)

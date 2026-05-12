@@ -1,9 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
-from app.components.charts import plot_importance_chart
-from app.components.cards import render_soft_card
-from app.services.analytics import get_feature_importances
+from components.charts import plot_importance_chart
+from components.cards import render_soft_card
+from services.analytics import get_feature_importances
 from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_LABELS, FEATURE_DESCRIPTIONS, NOTEBOOK_METRICS
 
 def render_tab_modelo(tab_modelo, model):

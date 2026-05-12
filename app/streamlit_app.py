@@ -1,11 +1,11 @@
 import streamlit as st
-from app.components.hero import render_hero
-from app.components.sidebar import render_sidebar
-from app.components.metrics import render_metrics_summary
-from app.pages.tab_triagem import render_tab_triagem
-from app.pages.tab_insights import render_tab_insight
-from app.pages.tab_modelo import render_tab_modelo
-from app.utils.loaders import load_css, load_model, load_analytics_base
+from components.hero import render_hero
+from components.sidebar import render_sidebar
+from components.metrics import render_metrics_summary
+from pages.tab_triagem import render_tab_triagem
+from pages.tab_insights import render_tab_insight
+from pages.tab_modelo import render_tab_modelo
+from utils.loaders import load_css, load_model, load_analytics_base
 from src.config import MODEL_FILE
 
 try:

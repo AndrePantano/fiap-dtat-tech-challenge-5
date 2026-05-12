@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
-from app.components.charts import plot_profile_comparison
-from app.components.cards import render_soft_card
-from app.components.metrics import render_metrics_predict
-from app.utils.formatters import format_decimal, format_pct
-from app.services.analytics import get_benchmarks, get_feature_importances
-from app.services.risk_analysis import predict_risk, classify_risk, build_priority_table, build_strengths_table, build_scenarios, build_recommendations, build_case_summary
+from components.charts import plot_profile_comparison
+from components.cards import render_soft_card
+from components.metrics import render_metrics_predict
+from utils.formatters import format_decimal, format_pct
+from services.analytics import get_benchmarks, get_feature_importances
+from services.risk_analysis import predict_risk, classify_risk, build_priority_table, build_strengths_table, build_scenarios, build_recommendations, build_case_summary
 from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_HELP
 
 
