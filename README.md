@@ -123,7 +123,7 @@ A aplicação permite:
     python -m streamlit run streamlit_app.py
 
 ## 🚀 Aplicação online
-- Streamlit App: [https://seu-app.streamlit.app](https://fiap-dtat-tech-challenge-f5.streamlit.app/)
+- Streamlit App: [https://fiap-dtat-tech-challenge-f5.streamlit.app/](https://fiap-dtat-tech-challenge-f5.streamlit.app/)
 
 ## 📦 Entregáveis do projeto
 - Código no GitHub
