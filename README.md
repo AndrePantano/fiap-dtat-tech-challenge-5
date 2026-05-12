@@ -122,9 +122,8 @@ A aplicação permite:
     # Execute o app
     python -m streamlit run streamlit_app.py
 
-## 🚀 Deploy
-A aplicação deve ser publicada no:
-- Streamlit Community Cloud
+## 🚀 Aplicação online
+- Streamlit App: [https://seu-app.streamlit.app](https://fiap-dtat-tech-challenge-f5.streamlit.app/)
 
 ## 📦 Entregáveis do projeto
 - Código no GitHub
