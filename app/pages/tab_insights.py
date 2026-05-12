@@ -1,9 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-from app.utils.formatters import format_decimal
 from app.components.cards import render_soft_card
 from app.components.charts import plot_year_summary, plot_correlation_chart
 from app.services.analytics import get_year_summary, get_year_summary_all_indicators, get_correlations
+from app.utils.formatters import format_decimal
 
 def render_tab_insight(tab_insights, analytics_base):
     year_summary = get_year_summary(analytics_base)
@@ -89,8 +89,3 @@ def render_tab_insight(tab_insights, analytics_base):
             "Tratar IPS como radar preventivo",
             "O psicossocial mostra baixa correlação direta com o INDE. Isso sugere uso como radar de prevenção e não como gatilho único de decisão.",
         )
-
-        st.caption(
-            "Fonte: notebook `datathon_ed.ipynb`, base consolidada PEDE 2022-2024 e modelo preditivo salvo em `model.pkl`."
-        )
-

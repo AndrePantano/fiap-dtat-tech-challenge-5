@@ -1,12 +1,8 @@
-from typing import Optional
-
 import joblib
 import pandas as pd
 import streamlit as st
-
 from src.config import MODEL_FILE, DATA_PATH, STYLE_DIR
-
-from src.constants import FEATURES
+from typing import Optional
 
 def load_css():
     css_path = STYLE_DIR / "main.css"

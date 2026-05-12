@@ -1,7 +1,6 @@
 
 import pandas as pd
 from typing import Optional
-
 from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURES_INDICATORS
 
 def get_feature_importances(model) -> pd.Series:
