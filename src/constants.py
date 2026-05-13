@@ -1,4 +1,4 @@
-FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','idade']
+FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','ipv']
 FEATURES_RESUMIDAS = ['ida', 'ieg', 'ips', 'ipp']
 FEATURES_INDICATORS = ["ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]
 
