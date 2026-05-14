@@ -1,9 +1,8 @@
 import streamlit as st
 from app.services.analytics import get_sample_size
 from app.utils.formatters import format_int
-from src.constants import NOTEBOOK_METRICS
 
-def render_hero(analytics_base):
+def render_hero(analytics_base, metrics):
 
     sample_size = get_sample_size(analytics_base)
 
@@ -11,7 +10,7 @@ def render_hero(analytics_base):
         f"""
         <div class="hero">
             <div class="hero-grid">
-                <div>
+                <div id="hero-title">
                     <span class="eyebrow">
                         Datathon • Passos Mágicos
                     </span>
@@ -35,9 +34,8 @@ def render_hero(analytics_base):
                     <div class="hero-mini-card">
                         <span>Desempenho do modelo</span>
                         <strong>
-                            {NOTEBOOK_METRICS["Acurácia"]} de acurácia
-                        </strong>
-                        <span>Recall de {NOTEBOOK_METRICS["Recall para Risco"]} para a classe de risco</span>
+                            {round(metrics["accuracy"] * 100,2)}% de acurácia
+                        </strong>                        
                     </div>
                     <div class="hero-mini-card">
                         <span>Pilares centrais</span>

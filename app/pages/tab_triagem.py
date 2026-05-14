@@ -30,12 +30,12 @@ def render_tab_triagem(st, plt, tab_triagem, analytics_base, model):
             left, right = st.columns(2, gap="medium")
 
             with left:
-                idade = st.text_input("Idade", placeholder="Digite a idade", key="idade_estudante", value=int(defaults['idade']))
+                fase = st.text_input("Fase Atual", placeholder="Digite a fase atual", key="fase_estudante", value=int(defaults['fase']))
                 ida = st.slider("IDA", 0.0, 10.0, defaults["ida"], 0.1, help=FEATURE_HELP["ida"])
                 ieg = st.slider("IEG", 0.0, 10.0, defaults["ieg"], 0.1, help=FEATURE_HELP["ieg"])
 
             with right:
-                fase = st.text_input("Fase Atual", placeholder="Digite a fase atual", key="fase_estudante", value=int(defaults['fase']))
+                ipv = st.slider("IPV", 0.0, 10.0, defaults["ipv"], 0.1, help=FEATURE_HELP["ipv"])
                 ips = st.slider("IPS", 0.0, 10.0, defaults["ips"], 0.1, help=FEATURE_HELP["ips"])
                 ipp = st.slider("IPP", 0.0, 10.0, defaults["ipp"], 0.1, help=FEATURE_HELP["ipp"])
                 
@@ -47,7 +47,7 @@ def render_tab_triagem(st, plt, tab_triagem, analytics_base, model):
             "ips": ips,
             "ipp": ipp,
             "fase": fase,
-            "idade": idade,            
+            "ipv": ipv,            
         })
         
         input_series_resumida = input_series[FEATURES_RESUMIDAS]

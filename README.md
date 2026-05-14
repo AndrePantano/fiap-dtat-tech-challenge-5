@@ -62,7 +62,9 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   └── 04_evaluation.ipynb  # Avaliação dos modelos
     │
     ├── reports/
-    │   └── Apresentação Executiva - Datathon Passos Mágicos.pdf
+    │   ├── roc_curve.png                                          # Gráfico da Curva ROC do modelo treinado
+    │   ├── metrics.json                                           # Métricas do modelo treinado
+    │   └── Apresentação Executiva - Datathon Passos Mágicos.pdf   # Apresentação Executiva
     │
     ├── src/
     │   ├── data/

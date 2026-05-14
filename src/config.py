@@ -19,3 +19,5 @@ RAW_PATH           = RAW_DATA_DIR / "BASE DE DADOS PEDE 2024 - DATATHON.xlsx"
 DATA_PATH          = INTERIM_DATA_DIR / "pede_interim.csv"
 ML_DATASET_FILE    = PROCESSED_DATA_DIR / "ml_dataset.csv"
 MODEL_FILE         = MODELS_DIR / "modelo_risco_passos_magicos.pkl"
+
+METRICS_FILE       = REPORTS_DIR / "metrics.json"

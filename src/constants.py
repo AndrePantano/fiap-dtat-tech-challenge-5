@@ -1,5 +1,5 @@
-FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','idade']
-FEATURES_RESUMIDAS = ['ida', 'ieg', 'ips', 'ipp']
+FEATURES = ['ida', 'ieg', 'ips', 'ipp', 'fase','ipv']
+FEATURES_RESUMIDAS = ['ida', 'ieg', 'ips', 'ipp','ipv']
 FEATURES_INDICATORS = ["ida","ieg", "ips", "ipp", "ian", "ipv", "iaa"]
 
 FEATURE_LABELS = {
@@ -10,8 +10,7 @@ FEATURE_LABELS = {
     "ian": "Adequação de nível",
     "ipv": "Ponto de virada",
     "iaa": "Auto Avaliação",
-    "fase": "Fase Atual",
-    "idade": "Idade"
+    "fase": "Fase Atual"    
 }
 
 FEATURE_HELP = {
@@ -22,8 +21,7 @@ FEATURE_HELP = {
     "ian": "Aderência do aluno ao nível/fase esperada.",
     "ipv": "Sinal de evolução e mudança positiva na trajetória do estudante.",
     "iaa": "Indicador de auto avaliação do aluno",
-    "fase": "Fase atual do aluno",
-    "idade": "Idade do aluno"
+    "fase": "Fase atual do aluno"    
 }
 
 FEATURE_DESCRIPTIONS = {
@@ -33,8 +31,7 @@ FEATURE_DESCRIPTIONS = {
     "ipp": "Apoio psicopedagógico aparece como alavanca relevante para evolução e para o IPV.",
     "ian": "Ajuda a contextualizar o nível do aluno, mas não é o principal fator explicativo do risco.",
     "ipv": "Resume o quanto o aluno está virando a curva. Tem forte relação com INDE, IDA e IEG.",
-    "fase": "Fase atual do aluno",
-    "idade": "Idade do aluno"
+    "fase": "Fase atual do aluno"    
 }
 
 ACTION_LIBRARY = {
@@ -69,17 +66,5 @@ ACTION_LIBRARY = {
     "fase": (
         "Adicionar título",
         "Adicionar ação",
-    ),
-    "idade": (
-        "Adicionar título",
-        "Adicionar ação",
-    ),
-}
-
-NOTEBOOK_METRICS = {
-    "Acurácia": "80%",
-    "F1-score": 0.89,
-    "Recall para Risco": 0.76,
-    "Curva ROC(AUC)" : 0.89,
-    "Modelo Treinado": "LogisticRegression"
+    )
 }
