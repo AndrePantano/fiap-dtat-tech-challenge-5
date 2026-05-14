@@ -2,10 +2,10 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pathlib import Path
+import json
 from sklearn.metrics import (classification_report, roc_curve, roc_auc_score)
 from sklearn.model_selection import train_test_split
-from src.config import ML_DATASET_FILE, MODEL_FILE
+from src.config import ML_DATASET_FILE, MODEL_FILE, METRICS_FILE, REPORTS_DIR
 from src.constants import FEATURES
 
 def run_evaluate():
@@ -32,7 +32,8 @@ def run_evaluate():
     auc = roc_auc_score(y_test, y_prob)
     fpr, tpr, _ = roc_curve(y_test, y_prob)
 
-    # Plot
+    # Salvar Gráfico
+    print("4.1 Gerando o gráfico da curva AUC.")
     plt.figure(figsize=(10, 6))
     sns.set_theme(style="whitegrid")
     plt.plot(fpr,tpr,label=f'Modelo Final (AUC = {auc:.2f})')
@@ -41,10 +42,21 @@ def run_evaluate():
     plt.xlabel('FPR')
     plt.ylabel('TPR')
     plt.legend()
-    plt.show()
+    plt.savefig(REPORTS_DIR / "roc_curve.png", dpi=300, bbox_inches="tight")
+    plt.close()
 
     # Relatório
-    print(classification_report(y_test, model.predict(X_test)))
+    print("4.2 Gerando o arquivo JSON do Classification Report")
+    
+    report = classification_report(y_test, model.predict(X_test), output_dict=True) 
+    
+    # adiciona metadados
+    report["model_name"] = model.__class__.__name__
+    report["auc_score"] = auc
+
+    with open(METRICS_FILE, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=4)
+
 
 # executa o script
 if __name__ == "__main__":

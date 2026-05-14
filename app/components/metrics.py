@@ -1,16 +1,15 @@
 import streamlit as st
 from app.services.analytics import get_year_summary, get_institution_count
 from app.utils.formatters import format_decimal, format_pct, format_int
-from src.constants import NOTEBOOK_METRICS
 
-def render_metrics_summary(analytics_base):
+def render_metrics_summary(analytics_base, metrics):
 
     year_summary = get_year_summary(analytics_base)
     institution_count = get_institution_count(analytics_base)
 
     metric_columns = st.columns(4)
 
-    metric_columns[0].metric("Recall da classe de risco", NOTEBOOK_METRICS["Recall para Risco"])
+    metric_columns[0].metric("Recall da classe de risco", f"{round(metrics["1"]["recall"] * 100, 2)}%")
 
     metric_columns[1].metric(
         "INDE médio em 2024",

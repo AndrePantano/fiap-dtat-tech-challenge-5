@@ -1,7 +1,8 @@
 import joblib
+import json
 import pandas as pd
 import streamlit as st
-from src.config import MODEL_FILE, DATA_PATH, STYLE_DIR
+from src.config import MODEL_FILE, DATA_PATH, STYLE_DIR, METRICS_FILE
 from typing import Optional
 
 def load_css():
@@ -12,6 +13,11 @@ def load_css():
             f"<style>{f.read()}</style>",
             unsafe_allow_html=True
         )
+
+
+def load_metrics():
+    with open(METRICS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 @st.cache_resource(show_spinner=False)

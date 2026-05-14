@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from app.components.charts import plot_importance_chart
 from app.components.cards import render_soft_card
 from app.services.analytics import get_feature_importances
-from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_LABELS, FEATURE_DESCRIPTIONS, NOTEBOOK_METRICS
+from src.constants import FEATURES, FEATURES_RESUMIDAS, FEATURE_LABELS, FEATURE_DESCRIPTIONS
 
-def render_tab_modelo(st, tab_modelo, model):
+def render_tab_modelo(st, tab_modelo, model, metrics):
 
     importances = get_feature_importances(model)
 
@@ -14,7 +14,7 @@ def render_tab_modelo(st, tab_modelo, model):
         st.caption("Explicação de negócio, leitura das variáveis e recomendações de governança para uso contínuo.")
 
         model_cols = st.columns(3, gap="medium")
-        model_cols[0].metric("Algoritmo", NOTEBOOK_METRICS["Modelo Treinado"])
+        model_cols[0].metric("Algoritmo", metrics["model_name"])
         model_cols[1].metric("Variável-alvo", "INDE abaixo da mediana")
         model_cols[2].metric("Features", str(len(FEATURES)))
 
@@ -37,18 +37,6 @@ def render_tab_modelo(st, tab_modelo, model):
                 for feature in FEATURES_RESUMIDAS
             ]
             st.dataframe(pd.DataFrame(dictionary_rows), use_container_width=True, hide_index=True)
-
-        st.markdown(
-            f"""
-            <div class="outras_features">
-                    <p>A <span>Idade</span> e a <span>Fase atual</span> do aluno foram utilizadas como features para o treinamento do modelo.
-                    Isso porque, no ecossistema da Passos Mágicos, a relação entre essas duas features é o maior incicativo oculto de defasagem.
-                    Um aluno mais velho preso em uma fase inicial carrega uma probabilidade de evasão ou risco muito diferente de um aluno com a idade ideal para aquela fase.
-                    O algoritmo capturou exatamente essa nuance.</p>                
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
         
         st.markdown("#### Governança recomendada")
         render_soft_card(
