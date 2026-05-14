@@ -79,7 +79,7 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │   │   ├── train.py        # Treina e cria o modelo preditivo escolhido
     │   │   └── evaluate.py     # Avalia o modelo usando métricas
     |   |
-    │   ├── config.py       # Configuração com constantes como variáveis de ambiente com o diretórios e arquivos
+    │   ├── config.py       # Configuração de variáveis do ambiente de diretórios e arquivos
     │   ├── constants.py    # Váriaveis que armazenam a configuração consumida pelo pipeline e o app
     │   └── pipeline.py     # Script com o roteiro de execução para a geração do modelo
     │
