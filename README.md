@@ -43,8 +43,8 @@ A análise utiliza dados educacionais dos anos 2022, 2023 e 2024 para responder 
     │
     ├── data/
     │   ├── raw/                # Dados brutos (originais)
-    │   ├── interim/            # Dados ajustados para análise, gerado automaticamente pelo script src/data/make_interim.py
-    │   └── processed/          # Dados tratados (produção)
+    │   ├── interim/            # Dados para análise
+    │   └── processed/          # Dados tratado (produção)
     │
     ├── docs/
     │   ├── Dicionário Dados Datathon.pdf    # Dicionário de dados
